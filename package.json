@@ -1,0 +1,52 @@
+{
+    "name": "tslibrary",
+    "version": "0.0.0",
+    "description": "TypeScript template library",
+    "main": "lib/main.common.js",
+    "module": "lib/main.esm.js",
+    "typings": "lib/main.d.ts",
+    "scripts": {
+        "test": "jest",
+        "pretty": "prettier --write **/*.ts **/*.tsx **/*.scss **/*.json !**/*.d.ts",
+        "eslint": "eslint --fix . --ext .ts,.tsx",
+        "lint": "npm run pretty && npm run eslint",
+        "build": "rollup -c"
+    },
+    "files": [
+        "src/*.ts",
+        "lib/*.js",
+        "types/*.d.ts"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ztytotoro/TsLibrary.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ztytotoro/TsLibrary/issues"
+    },
+    "homepage": "https://github.com/ztytotoro/TsLibrary#readme",
+    "devDependencies": {
+        "@types/jest": "^24.0.25",
+        "@typescript-eslint/eslint-plugin": "^2.15.0",
+        "@typescript-eslint/parser": "^2.15.0",
+        "@typescript-eslint/typescript-estree": "^2.15.0",
+        "eslint": "^6.8.0",
+        "eslint-config-prettier": "^6.9.0",
+        "eslint-plugin-import": "^2.19.1",
+        "jest": "^24.9.0",
+        "prettier": "^1.19.1",
+        "rollup": "^1.27.14",
+        "rollup-plugin-commonjs": "^10.1.0",
+        "rollup-plugin-node-resolve": "^5.2.0",
+        "rollup-plugin-typescript2": "^0.25.3",
+        "ts-jest": "^24.3.0",
+        "tslib": "^1.10.0",
+        "typescript": "^3.7.4"
+    },
+    "jest": {
+        "testEnvironment": "node"
+    },
+    "dependencies": {}
+}
