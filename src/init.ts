@@ -52,7 +52,6 @@ export function collectEvent(interval = 5) {
         } as IMouseEvent)
     )
   );
-  const move = merge(rawDrag, mousemove).pipe(throttleTime(interval));
   mousedown = fromEvent<MouseEvent>(window, EventType.MouseDown).pipe(
     map(
       e =>
