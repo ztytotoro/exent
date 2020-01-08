@@ -3,29 +3,31 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 
 export default [
-    {
-        input: 'src/main.ts',
-        output: {
-            file: 'lib/main.common.js',
-            format: 'cjs',
-        },
-        plugins: [typescript(), resolve(), commonjs()],
+  {
+    input: 'src/main.ts',
+    output: {
+      file: 'lib/main.common.js',
+      format: 'cjs'
     },
-    {
-        input: 'src/main.ts',
-        output: {
-            file: 'lib/main.esm.js',
-            format: 'esm',
-        },
-        plugins: [typescript(), resolve(), commonjs()],
+    plugins: [typescript(), resolve(), commonjs()],
+    external: ['rxjs']
+  },
+  {
+    input: 'src/main.ts',
+    output: {
+      file: 'lib/main.esm.js',
+      format: 'esm'
     },
-    {
-        input: 'src/main.ts',
-        output: {
-            name: 'exent',
-            file: 'lib/main.web.js',
-            format: 'iife',
-        },
-        plugins: [typescript(), resolve(), commonjs()],
+    plugins: [typescript(), resolve(), commonjs()],
+    external: ['rxjs']
+  },
+  {
+    input: 'src/main.ts',
+    output: {
+      name: 'exent',
+      file: 'lib/main.web.js',
+      format: 'iife'
     },
+    plugins: [typescript(), resolve(), commonjs()]
+  }
 ];

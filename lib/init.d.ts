@@ -1,25 +1,26 @@
+import { Observable } from 'rxjs';
+interface IPos {
+    x: number;
+    y: number;
+}
+interface IMouseEvent extends IPos {
+    target: EventTarget | null;
+}
+interface IDragEvent extends IMouseEvent {
+    offsetX: number;
+    offsetY: number;
+    distanceX: number;
+    distanceY: number;
+}
 export declare function pos(x: number, y: number): {
     x: number;
     y: number;
 };
 export declare function collectEvent(interval?: number): {
-    mousemove: import("rxjs").Observable<{
-        target: EventTarget | null;
-        x: number;
-        y: number;
-    }>;
-    mousedown: import("rxjs").Observable<{
-        target: EventTarget | null;
-        x: number;
-        y: number;
-    }>;
-    mouseup: import("rxjs").Observable<{
-        target: EventTarget | null;
-        x: number;
-        y: number;
-    }>;
-    drag: import("rxjs").Observable<{
-        offsetX: number;
-        offsetY: number;
-    }>;
+    mousemove: Observable<IMouseEvent>;
+    mousedown: Observable<IMouseEvent>;
+    mouseup: Observable<IMouseEvent>;
+    drag: Observable<IDragEvent>;
 };
+export declare function draggable(target: HTMLElement): void;
+export {};

@@ -1,20 +1,35 @@
-import { Observable, OperatorFunction } from 'rxjs';
-import { switchMap, map, endWith, takeUntil } from 'rxjs/operators';
+import { Observable, OperatorFunction, merge } from 'rxjs';
+import { map, tap, filter } from 'rxjs/operators';
 
-export function offset<T, R>(
-    start: Observable<T>,
-    project: (initial: T, current: T) => R,
-    end?: Observable<any>
+export function eventMap<T, R>(
+  start: Observable<any>,
+  project: (before: T, current: T, initial: T) => R,
+  end: Observable<any>
 ): OperatorFunction<T, R> {
-    return source => {
-        let target = start.pipe(
-            switchMap(initial => {
-                return source.pipe(map(x => project(initial, x)));
-            })
-        );
-        if (end) {
-            target = target.pipe(takeUntil(end));
+  return source => {
+    let canTake = false;
+    let initial: T | null = null;
+    let before: T | null = null;
+    start.subscribe(() => {
+      canTake = true;
+    });
+    end.subscribe(() => {
+      canTake = false;
+      initial = null;
+      before = null;
+    });
+    return source.pipe(
+      filter(() => canTake),
+      tap(value => {
+        if (initial === null) {
+          initial = value;
         }
-        return target;
-    };
+      }),
+      map(current => {
+        const _before = before ?? initial;
+        before = current;
+        return project(_before as T, current, initial as T);
+      })
+    );
+  };
 }
